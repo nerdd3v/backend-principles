@@ -1,5 +1,5 @@
 import express from 'express'; //library for setting up a server
-import jwt from 'jsonwebtoken'; //library to sign , verigy, & decode token
+import jwt, { decode } from 'jsonwebtoken'; //library to sign , verigy, & decode token
 import cors from 'cors'; //library for handling cross-origin requests
 
 const jwt_secret = "n3rddev"; //secret for signing the token
@@ -39,11 +39,12 @@ app.get('/user',(req, res)=>{
     //@ts-ignore
     const secureToken = cookieObject["_secure_token"];
     const decoded = jwt.verify(secureToken, jwt_secret);
-
+    
     if(!decoded){
         return res.status(400).json({message:"Invalid token"});
     }
-    res.status(200).json({message:"success"})
+    //@ts-ignore
+    res.status(200).json({message:"success", email: decoded.email})
 })
 
 app.post('/logout',(req, res)=>{
