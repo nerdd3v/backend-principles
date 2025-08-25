@@ -23,7 +23,7 @@ app.use(cors({
     origin:'http://localhost:5173'
 }))
 
-app.post('signin',(req, res)=>{
+app.post('/signin',(req, res)=>{
     const {email, password} = req.body;
     //db validation code goes here
     const token = jwt.sign({ //signing a token with payload as email
@@ -34,5 +34,13 @@ app.post('signin',(req, res)=>{
 
 app.get('/user',(req, res)=>{
     const cookieHeader = req.headers['cookie'];
-    
+    const cookieObject = parseCookies(cookieHeader);
+    //@ts-ignore
+    const secureToken = cookieObject["_secure_token"];
+    const decoded = jwt.verify(secureToken, jwt_secret);
+
+    if(!decoded){
+        return res.status(400).json({message:"Invalid token"});
+    }
+    res.status(200).json({message:"success"})
 })
