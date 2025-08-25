@@ -4,6 +4,18 @@ import cors from 'cors'; //library for handling cross-origin requests
 
 const jwt_secret = "n3rddev"; //secret for signing the token
 
+//@ts-ignore
+function parseCookies(cookieHeader){
+    const cookies ={}
+    const cookiePair = cookieHeader.split(';');
+    for(let pair of cookiePair){
+        const [name, value] = pair.split('=');
+        //@ts-ignore
+        cookies[name.trim()] = value;
+    }
+    return cookies;
+}
+
 const app = express();
 app.use(express.json());
 app.use(cors({
@@ -21,5 +33,6 @@ app.post('signin',(req, res)=>{
 })
 
 app.get('/user',(req, res)=>{
+    const cookieHeader = req.headers['cookie'];
     
 })
