@@ -30,6 +30,7 @@ app.post('/signin',(req, res)=>{
         email
     }, jwt_secret);
     res.cookie("_secure_token", token)
+    return res.json({cookie: token})
 })
 
 app.get('/user',(req, res)=>{
@@ -43,4 +44,13 @@ app.get('/user',(req, res)=>{
         return res.status(400).json({message:"Invalid token"});
     }
     res.status(200).json({message:"success"})
+})
+
+app.post('/logout',(req, res)=>{
+    res.cookie('_secure_token', "");
+    return res.json({message:"logged out"})
+})
+
+app.listen(3000,()=>{
+    console.log("listening on port 3000")
 })
