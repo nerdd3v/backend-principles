@@ -1,0 +1,22 @@
+{
+  "type": "module",
+  "name": "inMemoryCache",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "tsc -b && node ./dist/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.32.1",
+  "dependencies": {
+    "@types/express": "^5.0.6",
+    "@types/mongoose": "^5.11.97",
+    "express": "^5.2.1",
+    "mongo": "^0.1.0",
+    "mongoose": "^9.7.3",
+    "typescript": "^6.0.3"
+  }
+}
